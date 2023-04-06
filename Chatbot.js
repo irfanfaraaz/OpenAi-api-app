@@ -13,23 +13,32 @@ const openai = new OpenAIApi(configuration);
 
 
 const app = express()
-const port = 4000
+const port = 3000
 app.use(bodyParser.json())
-
+let ans="";
 app.post('/chat', async (req, res) => {
 
     const {prompt} = req.body;
+    let str1="\n\nYou: ";
+    ans+=str1;
+    ans+=prompt;
 
+    console.log("before call"+ans);
     const completion =  await openai.createChatCompletion({
         model: "gpt-3.5-turbo",
         messages: [
-            {role: "user", content: `${prompt}`},
+            {role: "user", content: `${ans}`},
         ],
         max_tokens: 4000,
         temperature: 0.2,
         top_p: 1,
+        frequency_penalty: 0.5,
+        presence_penalty: 0.0,
+        // stop: ["\n\n"]
     });
-
+    ans+="\n\n"
+    ans+=completion.data.choices[0].message.content;
+    console.log("after call"+ans);
     res.json({
         message: completion.data.choices[0].message
     })
@@ -38,4 +47,4 @@ app.post('/chat', async (req, res) => {
 
 app.listen(port, () => {
     console.log(` app listening at http://localhost:${port}`)
-})
+})       
