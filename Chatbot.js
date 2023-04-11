@@ -30,7 +30,7 @@ app.post('/chat', async (req, res) => {
             {role: "user", content: `${ans}`},
         ],
         max_tokens: 4000,
-        temperature: 0.2,
+        temperature: 0.99,
         top_p: 1,
         frequency_penalty: 0.5,
         presence_penalty: 0.0,

@@ -41,7 +41,7 @@ app.post('/giftsuggestions', async (req, res) => {
             { role: "user", content: `provide me 10 ${occasion} gift suggestions for a ${age} year old ${gender} ${relation} also suggest me some links where i can buy those gifts` },
         ],
         max_tokens: 4000,
-        temperature: 0.5,
+        temperature: 0.9,
         top_p: 1,
         frequency_penalty: 0.5,
         presence_penalty: 0.0,
